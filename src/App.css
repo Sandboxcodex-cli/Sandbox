@@ -1,136 +1,58 @@
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
+*{box-sizing:border-box}
+html,body,#root{width:100%;height:100%;margin:0}
+body{background:#06101f;color:#e5eefc;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+.ide-shell{height:100vh;display:flex;flex-direction:column;overflow:hidden;background:radial-gradient(circle at top left,#1d4ed855,transparent 32%),linear-gradient(135deg,#06101f 0%,#0b1220 48%,#111827 100%)}
+.ide-main{min-height:0;flex:1;display:grid;grid-template-columns:64px 260px minmax(0,1fr) 320px;border-top:1px solid rgba(148,163,184,.16)}
+.activity-bar{display:flex;flex-direction:column;gap:10px;align-items:center;padding:14px 8px;background:rgba(2,6,23,.82);border-right:1px solid rgba(148,163,184,.16);backdrop-filter:blur(18px)}
+.activity-bar button{width:42px;height:42px;border:1px solid transparent;border-radius:14px;background:transparent;color:#94a3b8;font-size:18px}
+.activity-bar button:hover,.activity-bar button.active{color:#e0f2fe;background:linear-gradient(135deg,#2563eb,#06b6d4);box-shadow:0 14px 36px rgba(6,182,212,.22)}
+.explorer-panel,.right-rail{min-height:0;overflow:auto;background:rgba(15,23,42,.72);border-right:1px solid rgba(148,163,184,.16);backdrop-filter:blur(18px)}
+.right-rail{border-right:0;border-left:1px solid rgba(148,163,184,.16);display:flex;flex-direction:column}
+.panel-heading{height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;text-transform:uppercase;letter-spacing:.12em;font-size:12px;color:#93c5fd;border-bottom:1px solid rgba(148,163,184,.16)}
+.panel-heading button{display:none;background:transparent;border:0;color:#fff;font-size:24px}
+.explorer-panel aside{width:100%!important;border-right:0!important;background:transparent!important}
+.root-files{display:grid;gap:4px;padding:8px 10px 18px}
+.root-files button{padding:9px 10px;text-align:left;border:0;border-radius:10px;background:transparent;color:#cbd5e1}
+.root-files button:hover,.root-files button.selected{background:rgba(59,130,246,.18);color:#f8fafc}
+.workbench{min-width:0;min-height:0;display:flex;flex-direction:column}
+.hero-strip{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:22px 26px;border-bottom:1px solid rgba(148,163,184,.16);background:linear-gradient(90deg,rgba(37,99,235,.2),rgba(14,165,233,.06))}
+.hero-strip p{margin:0 0 6px;color:#67e8f9;font-size:12px;text-transform:uppercase;letter-spacing:.16em}
+.hero-strip h1{margin:0;font-size:clamp(22px,3vw,38px);letter-spacing:-.04em}
+.status-card{min-width:230px;padding:14px 16px;border:1px solid rgba(125,211,252,.25);border-radius:18px;background:rgba(8,47,73,.42);box-shadow:inset 0 1px 0 rgba(255,255,255,.05)}
+.status-card b,.status-card span{display:block}
+.status-card span{margin-top:4px;color:#bae6fd;font-size:13px}
+.editor-chrome{height:48px;display:flex;align-items:center;gap:12px;padding:0 16px;background:rgba(15,23,42,.82);border-bottom:1px solid rgba(148,163,184,.16)}
+.file-pill,.live-pill{border:1px solid rgba(148,163,184,.18);border-radius:999px;padding:7px 12px;background:rgba(15,23,42,.8);color:#cbd5e1;font-size:13px}
+.live-pill{margin-left:auto;color:#86efac}
+.mobile-explorer{display:none;border:0;border-radius:12px;background:#1d4ed8;color:white;padding:8px 12px}
+.content-pane{min-height:0;flex:1;overflow:hidden;background:#07111f}
+.content-pane textarea{background:linear-gradient(180deg,#0f172a,#111827)!important;color:#dbeafe!important;font-size:15px!important;line-height:1.65!important}
+.runtime-pane{height:100%;display:grid;grid-template-rows:minmax(0,1fr) 150px}
+.log-feed{overflow:auto;padding:14px 18px;background:#020617;border-top:1px solid rgba(148,163,184,.16);font-family:ui-monospace,Menlo,monospace;color:#93c5fd}
+.pipeline-card{margin:14px;padding:16px;border:1px solid rgba(148,163,184,.16);border-radius:20px;background:rgba(2,6,23,.46)}
+.pipeline-card h3{margin:0 0 14px}
+.pipeline-step{display:flex;align-items:center;gap:10px;padding:10px 0;color:#cbd5e1;border-top:1px solid rgba(148,163,184,.12)}
+.pipeline-step span{width:24px;height:24px;display:grid;place-items:center;border-radius:999px;background:#0ea5e9;color:#00111f;font-weight:800;font-size:12px}
+.topbar{height:58px!important;background:rgba(2,6,23,.88)!important;border-bottom:1px solid rgba(148,163,184,.16)!important;backdrop-filter:blur(18px)}
+.topbar button{height:36px;min-width:38px;border:1px solid rgba(148,163,184,.2);border-radius:12px;background:rgba(15,23,42,.9);color:#e2e8f0}
+.topbar button:hover{background:#2563eb}
+.topbar div:last-child{font-size:0}
+.topbar div:last-child:after{content:"OpenClaw for Eios";font-size:16px;color:#e0f2fe}
+.right-rail>div:first-child{height:auto!important;min-height:220px;border-bottom:1px solid rgba(148,163,184,.16)}
+
+@media(max-width:1100px){.ide-main{grid-template-columns:58px 250px minmax(0,1fr)}
+.right-rail{display:none}
+.status-card{display:none}
 }
 
-html,body,#root{
-  width:100%;
-  height:100%;
+@media(max-width:760px){.ide-main{grid-template-columns:56px minmax(0,1fr)}
+.explorer-panel{position:fixed;top:58px;bottom:0;left:-280px;width:270px;z-index:30;transition:left .22s ease}
+.explorer-panel.open{left:0}
+.panel-heading button,.mobile-explorer{display:block}
+.hero-strip{padding:18px}
+.hero-strip h1{font-size:24px}
+.activity-bar{padding-inline:7px}
 }
 
-body{
-  background:#1e1e1e;
-  color:#fff;
-  font-family:Inter,system-ui,sans-serif;
-}
-
-.topbar{
-  height:56px;
-  background:#252526;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 20px;
-  border-bottom:1px solid #333;
-}
-
-.logo{
-  font-size:22px;
-  font-weight:700;
-  color:#6c8cff;
-}
-
-.actions{
-  display:flex;
-  gap:10px;
-}
-
-.actions button{
-  padding:8px 16px;
-  border:none;
-  border-radius:8px;
-  background:#0e639c;
-  color:#fff;
-  cursor:pointer;
-}
-
-.workspace{
-  display:grid;
-  grid-template-columns:260px 1fr 320px;
-  height:calc(100vh - 56px - 180px);
-}
-
-.sidebar{
-  background:#252526;
-  border-right:1px solid #333;
-  padding:15px;
-}
-
-.sidebar h3{
-  margin-bottom:15px;
-}
-
-.file{
-  padding:8px 0;
-  cursor:pointer;
-}
-
-.file:hover{
-  color:#4fc3f7;
-}
-
-.editor-area{
-  background:#1e1e1e;
-  height:100%;
-}
-
-.aichat{
-  background:#252526;
-  border-left:1px solid #333;
-  padding:15px;
-  display:flex;
-  flex-direction:column;
-}
-
-.aichat textarea{
-  flex:1;
-  margin:15px 0;
-  background:#1e1e1e;
-  color:#fff;
-  border:1px solid #444;
-  padding:10px;
-  resize:none;
-}
-
-.aichat button{
-  padding:12px;
-  background:#0e639c;
-  color:#fff;
-  border:none;
-}
-
-.terminal{
-  height:180px;
-  background:#111;
-  border-top:1px solid #333;
-  padding:15px;
-  overflow:auto;
-}
-
-.preview{
-  height:320px;
-  background:#202020;
-  border-top:1px solid #333;
-  padding:15px;
-}
-
-.preview iframe{
-  width:100%;
-  height:250px;
-  border:none;
-  background:#fff;
-}
-
-@media(max-width:900px){
-
-.workspace{
-  grid-template-columns:1fr;
-}
-
-.sidebar,
-.aichat{
-  display:none;
-}
-
-}
