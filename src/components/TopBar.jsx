@@ -9,6 +9,7 @@ export default function TopBar({
   return(
 
     <div
+      className="topbar"
       style={{
         height:50,
         background:"#111827",
