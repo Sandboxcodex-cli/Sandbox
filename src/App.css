@@ -1,0 +1,136 @@
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html,body,#root{
+  width:100%;
+  height:100%;
+}
+
+body{
+  background:#1e1e1e;
+  color:#fff;
+  font-family:Inter,system-ui,sans-serif;
+}
+
+.topbar{
+  height:56px;
+  background:#252526;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 20px;
+  border-bottom:1px solid #333;
+}
+
+.logo{
+  font-size:22px;
+  font-weight:700;
+  color:#6c8cff;
+}
+
+.actions{
+  display:flex;
+  gap:10px;
+}
+
+.actions button{
+  padding:8px 16px;
+  border:none;
+  border-radius:8px;
+  background:#0e639c;
+  color:#fff;
+  cursor:pointer;
+}
+
+.workspace{
+  display:grid;
+  grid-template-columns:260px 1fr 320px;
+  height:calc(100vh - 56px - 180px);
+}
+
+.sidebar{
+  background:#252526;
+  border-right:1px solid #333;
+  padding:15px;
+}
+
+.sidebar h3{
+  margin-bottom:15px;
+}
+
+.file{
+  padding:8px 0;
+  cursor:pointer;
+}
+
+.file:hover{
+  color:#4fc3f7;
+}
+
+.editor-area{
+  background:#1e1e1e;
+  height:100%;
+}
+
+.aichat{
+  background:#252526;
+  border-left:1px solid #333;
+  padding:15px;
+  display:flex;
+  flex-direction:column;
+}
+
+.aichat textarea{
+  flex:1;
+  margin:15px 0;
+  background:#1e1e1e;
+  color:#fff;
+  border:1px solid #444;
+  padding:10px;
+  resize:none;
+}
+
+.aichat button{
+  padding:12px;
+  background:#0e639c;
+  color:#fff;
+  border:none;
+}
+
+.terminal{
+  height:180px;
+  background:#111;
+  border-top:1px solid #333;
+  padding:15px;
+  overflow:auto;
+}
+
+.preview{
+  height:320px;
+  background:#202020;
+  border-top:1px solid #333;
+  padding:15px;
+}
+
+.preview iframe{
+  width:100%;
+  height:250px;
+  border:none;
+  background:#fff;
+}
+
+@media(max-width:900px){
+
+.workspace{
+  grid-template-columns:1fr;
+}
+
+.sidebar,
+.aichat{
+  display:none;
+}
+
+}
